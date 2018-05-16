@@ -1,5 +1,5 @@
 # stockInfo
-Allows users to rank volatility of stocks listed on nasdaq simply copy and paste the stocks you want to follow from nasdaqCompaniesFullList.csv to the nasdaqSubList.csv file which is used to generate the csv files present in /data directory these files contains in order from highest to lowest volatity of stocks based on today, and this year.
+Allows users to rank volatility of stocks listed on nasdaq simply copy and paste the stocks you want to follow from nasdaqCompaniesFullList.csv to the nasdaqSubList.csv file which is used to generate the csv files present in /data directory these files contains in order from highest to lowest volatity of stocks based on today, and this year. Volatitly is the percent change in stock compared to it's average price this year or today.
 
 You can copy paste the whole nasdaq nasdaqCompaniesFullList.csv to the nasdaqSubList.csv but it will take a while.
 
