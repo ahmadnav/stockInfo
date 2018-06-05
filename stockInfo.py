@@ -15,7 +15,7 @@ class stockInfo:
 
     #Holds urlib request, a website andother data if required to send to the website(see docs)
     webSite = None#urllib2.Request("https://www.nasdaq.com/screening/company-list.aspx")
-    
+    urlIndex = 8
     
     bs4BeautifulSoup = None
     #Array of stocks.
@@ -25,7 +25,7 @@ class stockInfo:
     def __init__(self):
         # self.setUrlLib()
         # self.setBS4()
-        self.storeStockInfo(nasdaqSubList)
+        self.storeStockInfo(allCompaniesCSV)
         return
 
     def setUrlLib(self):
@@ -72,8 +72,10 @@ class stockInfo:
             for row in reader:
                 print( row )
                 print("Num row: %i" %i)
-                _stock = self.getCompanyStockInfo(row[7], row[1], row[0])
-                self.stocks.append(_stock)
+                _stock = self.getCompanyStockInfo(row[self.urlIndex], row[1], row[0])
+                #If the stock info is found.
+                if _stock is not None:
+                    self.stocks.append(_stock)
                 #del _stock
                 # print("Stock Info################")
                 # _stock.printInfo()
@@ -85,9 +87,12 @@ class stockInfo:
 
     #Company stock info from site
     def getCompanyStockInfo(self, url, stockName, stockSymbol):
-        req = urllib2.Request(url)
-        bs4NasdaqCompanyInfo = BeautifulSoup( urllib2.urlopen(req) , 'lxml')
-
+        try:
+            req = urllib2.Request(url)
+            bs4NasdaqCompanyInfo = BeautifulSoup( urllib2.urlopen(req) , 'lxml')
+        except:
+            print("%s is an invalid URL for stock Name %s." %(url, stockName))
+            return None
         #col = bs4NasdaqCompanyInfo.find('div', attrs={'id':'left-column-div'}) 
         
         _stock = stock(stockName,stockSymbol,url)
